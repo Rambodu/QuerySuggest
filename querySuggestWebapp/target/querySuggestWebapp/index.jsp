@@ -99,12 +99,8 @@ body {
 		$('#suggestQuery').autocomplete({
 			source:function(query,process){
 				var matchCount = this.options.items;
-				alert('query='+query);
-				alert(process);
 				$.post("http://localhost:8080/querySuggestWebapp/s.do",{"q":query,"rows":10},function(respData){
-					alert('respData='+respData);
 					var suggestArray = eval(respData);
-					alert('suggestArray='+suggestArray);
 					return process(suggestArray);
 				});
 			}/* ,

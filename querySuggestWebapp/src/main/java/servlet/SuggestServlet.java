@@ -24,7 +24,7 @@ public class SuggestServlet extends HttpServlet {
 		// array.add(new Suggest("今天星期几"));
 		// array.add(new Suggest("今天的天气怎么样"));
 
-		String str = "[\"今天天气\",\"今天星期几\"]";
+		String str = "[\"Rambo\",\"Random\",\"Real\",\"Renren\"]";
 
 		resp.setContentType("text/plain;charset=UTF-8");
 		resp.setCharacterEncoding("UTF-8");

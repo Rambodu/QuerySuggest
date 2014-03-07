@@ -48,10 +48,15 @@ body {
 <body>
 	<div class="container-fluid">
 		<form class="form-signin" action="#" method="post">
-			<h2 class="form-signin-heading">Please input search query</h2>
-			<input type="text" data-provide="typeahead" autocomplete="off">
-			<br /> <input type="text" name="query" placeholder="Search Query"
-				class="input-block-level" id="query_input">
+			<h2 class="form-signin-heading">Input Query</h2>
+			<input type="text"  class="input-xlarge" id="suggestQuery" name="suggestQuery" data-provide="typeahead" placeholder="Search Query" autocomplete="off">
+			
+			<!-- <br /> --> 
+			
+			<!-- <input type="text" name="queryInput" id="query" placeholder="Search Query"
+				class="input-block-level" id="query_input"> -->
+				
+				
 			<button type="submit" class="btn btn-large btn-primary">Search!</button>
 			<!-- 
 			<br />
@@ -85,8 +90,38 @@ body {
 	<!-- Placed at the end of the document so the pages load faster -->
 	<script src="<%=contextPath%>/js/jquery.js"></script>
 	<script src="<%=contextPath%>/js/bootstrap.js"></script>
+	<script src="<%=contextPath%>/js/bootstrap.autocomplete.js"></script>
+	<script src="<%=contextPath%>/js/jQuery.placeholder.min.js"></script>
 	<script type="text/javascript">
-		$(function() {
+	
+	$(document).ready(function(){
+		$('input, textarea').placeholder();
+		$('#suggestQuery').autocomplete({
+			source:function(query,process){
+				var matchCount = this.options.items;
+				alert('query='+query);
+				alert(process);
+				$.post("http://localhost:8080/querySuggestWebapp/s.do",{"q":query,"rows":10},function(respData){
+					alert('respData='+respData);
+					var suggestArray = eval(respData);
+					alert('suggestArray='+suggestArray);
+					return process(suggestArray);
+				});
+			}/* ,
+			formatItem:function(item){
+				alert(''+item);
+				return item.suggestion;
+			},
+			setValue:function(item){
+				return {'data-value':item,'real-value':item};
+			} */
+		});
+		/* $("#goBtn").click(function(){
+			alert("1");
+		}); */
+	});
+	
+		/* $(function() {
 			//IE  
 			if ($.browser.msie) {
 				$("#query_input").get(0).attachEvent("onpropertychange", function(o) {
@@ -98,19 +133,21 @@ body {
 					alert(o.target.value);
 				}, false);
 			}
-		});
+		}); */
 
-		function suggest(query,rows){
-			var url = 'http://localhost:8080/mobvoisuggestdatabackend/query?q='+query+'&rows='+rows;
+		/* function suggest(query,rows){
+			var url = 'http://localhost:8080/querySuggestWebapp/s.do?q='+query+'&rows='+rows;
 			 $.get(url, function (data, textStatus){
 				//返回的 data 可以是 xmlDoc, jsonObj, html, text, 等等.
 				//this; // 在这里this指向的是Ajax请求的选项配置信息，请参考下图
 				alert(data);
+				var suggestArray = eval("'"+data+"'");
+				aleter(suggestArray[0].suggestion)
 				alert(textStatus);//请求状态：success，error等等。
 				//当然这里捕捉不到error，因为error的时候根本不会运行该回调函数
 				//alert(this);
 				});
-		}
+		} */
 		/* function showSuggestions() {
 			// update suggestion list
 			$('.typeahead').typeahead();

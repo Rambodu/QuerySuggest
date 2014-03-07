@@ -4,10 +4,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import net.sf.json.JSONArray;
-
 /**
- * @author rambodu 2014-3-8 ÉÏÎç12:45:08
+ * @author rambodu 2014-3-8 12:45:08
  */
 public class SuggestServlet extends HttpServlet {
 
@@ -16,30 +14,28 @@ public class SuggestServlet extends HttpServlet {
 	@Override
 	public void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws javax.servlet.ServletException, java.io.IOException {
-		// {"content":"[\"½ñÌìÌìÆø\",\"½ñÌìÌìÆøÔõÃ´Ñù\",\"½ñÌìµÄÌìÆø\",\"½ñÌìÌìÆøÔõÑù\",\"½ñÌìÌìÆøÈçºÎ\",\"½ñÌìÓĞÊ²Ã´ĞÂÎÅ\",\"½ñÌìĞÇÆÚ¼¸\",\"½ñÌìµÄÌìÆøÔõÃ´Ñù\",\"½ñÌì¼¸ºÅ\",\"½ñÌì¶àÉÙ¶È\"]","errorMsg":{"code":"","desc":"","exception":""},"status":"success","task":"query suggestion"}
+		// {"content":"[\"ä»Šå¤©å¤©æ°”\",\"ä»Šå¤©å¤©æ°”æ€ä¹ˆæ ·\",\"ä»Šå¤©çš„å¤©æ°”\",\"ä»Šå¤©å¤©æ°”æ€æ ·\",\"ä»Šå¤©å¤©æ°”å¦‚ä½•\",\"ä»Šå¤©æœ‰ä»€ä¹ˆæ–°é—»\",\"ä»Šå¤©æ˜ŸæœŸå‡ \",\"ä»Šå¤©çš„å¤©æ°”æ€ä¹ˆæ ·\",\"ä»Šå¤©å‡ å·\",\"ä»Šå¤©å¤šå°‘åº¦\"]","errorMsg":{"code":"","desc":"","exception":""},"status":"success","task":"query suggestion"}
 		// String json = "{result:}";
-		JSONArray array = new JSONArray();
-		array.add(new Suggest("½ñÌìÌìÆø"));
-		array.add(new Suggest("½ñÌìµÄÌìÆø"));
-		array.add(new Suggest("½ñÌìÌìÆøÔõÑù"));
-		array.add(new Suggest("½ñÌìÓĞÊ²Ã´ĞÂÎÅ"));
-		array.add(new Suggest("½ñÌìĞÇÆÚ¼¸"));
-		array.add(new Suggest("½ñÌìµÄÌìÆøÔõÃ´Ñù"));
-		array.add(new Suggest("½ñÌì¼¸ºÅ"));
-		array.add(new Suggest("½ñÌì¶àÉÙ¶È"));
-		resp.getWriter().write(array.toString());
+		req.setCharacterEncoding("UTF-8");
+		// JSONArray array = new JSONArray();
+		// array.add(new Suggest("ä»Šå¤©å¤©æ°”"));
+		// array.add(new Suggest("ä»Šå¤©å¤©æ°”æ€ä¹ˆæ ·"));
+		// array.add(new Suggest("ä»Šå¤©æœ‰ä»€ä¹ˆæ–°é—»"));
+		// array.add(new Suggest("ä»Šå¤©æ˜ŸæœŸå‡ "));
+		// array.add(new Suggest("ä»Šå¤©çš„å¤©æ°”æ€ä¹ˆæ ·"));
+
+		String str = "[\"ä»Šå¤©å¤©æ°”\",\"ä»Šå¤©æ˜ŸæœŸå‡ \"]";
+
+		resp.setContentType("text/plain;charset=UTF-8");
+		resp.setCharacterEncoding("UTF-8");
+		// resp.getWriter().write(array.toString());
+		resp.getWriter().write(str);
 	}
 
-	// public static void main(String[] args) {
-	// JSONArray array = new JSONArray();
-	// array.add(new Suggest("½ñÌìÌìÆø"));
-	// array.add(new Suggest("½ñÌìµÄÌìÆø"));
-	// array.add(new Suggest("½ñÌìÌìÆøÔõÑù"));
-	// array.add(new Suggest("½ñÌìÓĞÊ²Ã´ĞÂÎÅ"));
-	// array.add(new Suggest("½ñÌìĞÇÆÚ¼¸"));
-	// array.add(new Suggest("½ñÌìµÄÌìÆøÔõÃ´Ñù"));
-	// array.add(new Suggest("½ñÌì¼¸ºÅ"));
-	// array.add(new Suggest("½ñÌì¶àÉÙ¶È"));
-	// System.out.println(array.toString());
-	// }
+	@Override
+	public void doPost(HttpServletRequest req, HttpServletResponse resp)
+			throws javax.servlet.ServletException, java.io.IOException {
+		doGet(req, resp);
+	}
+
 }
